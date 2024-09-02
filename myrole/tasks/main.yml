@@ -1,0 +1,19 @@
+---
+# tasks file for myrole
+- name: Install packages
+  yum: 
+    name: "{{ item }}"
+    state: present
+  loop: "{{ packages }}"
+
+- name: Start and enable httpd
+  systemd:
+    name: httpd
+    state: started
+    enabled: yes
+
+- name: Create a user
+  user: 
+    name: "{{ myuser }}"
+    state: present
+    shell: /bin/bash

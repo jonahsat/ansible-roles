@@ -1,0 +1,5 @@
+---
+- hosts: all_group
+  become: yes
+  roles:
+    - myrole

@@ -1,0 +1,33 @@
+---
+- name: Installing packages on all machines
+  hosts: all_group
+  vars:
+    packages:
+      - httpd
+      - git
+  tasks:
+    - name: Install packages on all_group
+      yum: 
+        name: "{{ item }}"
+        state: present
+      loop: "{{ packages }}"
+
+- name: Copy files to machine in group1
+  hosts: group1
+  vars:
+    source: /home/jonah/dir1/text.txt
+    destination: /home/jonah/dir2/text2.txt
+  tasks:
+    - name: Copy files to group1 machine
+      copy:
+        src: "{{ source }}"
+        dest: "{{ destination }}"
+
+- name: Make file in group2 machine
+  hosts: group2
+  tasks:
+    - name: Create a file in group2
+      file:
+        path: /home/jonah/text3.txt
+        state: touch
+...
